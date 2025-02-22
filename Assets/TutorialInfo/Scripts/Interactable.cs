@@ -5,22 +5,22 @@ public class Interactable : MonoBehaviour
     public string customMessage; // Mensagem personalizada para a interação
     public Color newColor = Color.red; // Cor que o objeto assumirá ao interagir
 
-    private Renderer objectRenderer; // Referência ao componente Renderer do objeto
+    private MeshRenderer meshRenderer; // Referência ao componente MeshRenderer do objeto
     private Color originalColor; // Cor original do objeto
 
     private void Start()
     {
-        // Obtém o componente Renderer do objeto
-        objectRenderer = GetComponent<Renderer>();
+        // Obtém o componente MeshRenderer do objeto
+        meshRenderer = GetComponent<MeshRenderer>();
 
-        // Salva a cor original do objeto
-        if (objectRenderer != null)
+        if (meshRenderer != null)
         {
-            originalColor = objectRenderer.material.color;
+            // Salva a cor original do objeto
+            originalColor = meshRenderer.material.color;
         }
         else
         {
-            Debug.LogWarning("Renderer não encontrado no objeto!");
+            Debug.LogWarning("MeshRenderer não encontrado no objeto!");
         }
     }
 
@@ -31,23 +31,23 @@ public class Interactable : MonoBehaviour
 
     public void Interact()
     {
-        if (objectRenderer != null)
+        if (meshRenderer != null)
         {
             // Alterna entre a cor original e a nova cor
-            if (objectRenderer.material.color == originalColor)
+            if (meshRenderer.material.color == originalColor)
             {
-                objectRenderer.material.color = newColor;
+                meshRenderer.material.color = newColor;
             }
             else
             {
-                objectRenderer.material.color = originalColor;
+                meshRenderer.material.color = originalColor;
             }
 
-            Debug.Log($"Interagiu com {gameObject.name} e mudou a cor para {objectRenderer.material.color}");
+            Debug.Log($"Interagiu com {gameObject.name} e mudou a cor para {meshRenderer.material.color}");
         }
         else
         {
-            Debug.LogWarning("Renderer não encontrado no objeto!");
+            Debug.LogWarning("MeshRenderer não encontrado no objeto!");
         }
     }
 }
